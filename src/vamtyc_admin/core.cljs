@@ -2,25 +2,24 @@
   (:require
    [goog.dom :as gdom]
    [reagent.core :as reagent :refer [atom]]
-   [reagent.dom :as rdom]))
-
-(println "This text is printed from src/vamtyc_admin/core.cljs.")
-
-(defn multiply [a b] (* a b))
+   [reagent.dom :as rdom]
+   [vamtyc-admin.components.resource :refer [resource]]))
 
 ;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+(defonce app-state (atom {}))
 
 (defn get-app-element []
   (gdom/getElement "app"))
 
-(defn hello-world []
-  [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this in src/vamtyc_admin/core.cljs and watch it change!"]])
+(defn vamtyc-admin []
+  (let [res {:type :Resource
+             :name "REST resource"}]
+    [:div
+     [:h1 "vamtyc-admin"]
+     [resource res]]))
 
 (defn mount [el]
-  (rdom/render [hello-world] el))
+  (rdom/render [vamtyc-admin] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]

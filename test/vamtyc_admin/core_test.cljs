@@ -1,10 +1,8 @@
 (ns vamtyc-admin.core-test
     (:require
      [cljs.test :refer-macros [deftest is testing]]
-     [vamtyc-admin.core :refer [multiply]]))
+     [vamtyc-admin.core :as sut]))
 
-(deftest multiply-test
-  (is (= (* 1 2) (multiply 1 2))))
-
-(deftest multiply-test-2
-  (is (= (* 75 10) (multiply 10 75))))
+(deftest can-test
+  (testing "Can test"
+    (is (= 2 (* 1 2)))))

@@ -4,11 +4,17 @@ pom.xml.asc
 *.class
 /lib/
 /classes/
+/out/
 /target/
 /checkouts/
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
 .lein-failures
+.repl
 .nrepl-port
 .cpcache/
+.rebel_readline_history
+resources/public/cljs-out/
+.clj-kondo/.cache
+.lsp

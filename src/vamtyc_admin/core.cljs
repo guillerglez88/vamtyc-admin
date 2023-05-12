@@ -3,7 +3,27 @@
    [goog.dom :as gdom]
    [reagent.core :as reagent :refer [atom]]
    [reagent.dom :as rdom]
-   [vamtyc-admin.components.resource :refer [resource]]))
+   [vamtyc-admin.components.core :as cmp]))
+
+(def vamtyc-admin-index
+  {:version "0.0.1-alpha-1"
+   :behavior [{:code "/Coding/vamtyc-admin-behaviour?code=trigger"
+               :on "/Coding/vamtyc-admin-behaviour-event?code=load"
+               :action "/Coding/vamtyc-admin-behaviour-action?code=xreq"
+               :target ["flter"]
+               :replace ["main"]}
+              {:code "/Coding/vamtyc-admin-behaviour?code=override"
+               :on "/Coding/vamtyc-admin-behaviour-event?code=navigate"
+               :action "/Coding/vamtyc-admin-behaviour-action?code=xreq"
+               :target ["main"]}]
+   :filter {:type :Request
+            :method :GET
+            :url "/List?_of=Resource"}
+   :main {:type :List
+          :code "/Coding/wellknown-resources?code=list"
+          :url "/List?_of=Resource"
+          :items []
+          :total 0}})
 
 ;; define your app data so that it doesn't get over-written on reload
 (defonce app-state (atom {}))
@@ -11,15 +31,8 @@
 (defn get-app-element []
   (gdom/getElement "app"))
 
-(defn vamtyc-admin []
-  (let [res {:type :Resource
-             :name "REST resource"}]
-    [:div
-     [:h1 "vamtyc-admin"]
-     [resource res]]))
-
 (defn mount [el]
-  (rdom/render [vamtyc-admin] el))
+  (rdom/render [cmp/app] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]

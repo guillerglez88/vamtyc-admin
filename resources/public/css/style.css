@@ -1,5 +1,9 @@
 /* some style */
 
-form {
+.wkr-request {
+    width: 100%;
+}
+
+.wkr-request form {
     width: 100%;
 }

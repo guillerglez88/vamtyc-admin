@@ -2,7 +2,7 @@
   (:require
    [reagent.core :as r]))
 
-(defn request [res]
+(defn render [_lookup res]
   (let [url (r/atom (:url res))
         set-url #(reset! url (-> % .-target .-value))]
     (fn [res attrs]

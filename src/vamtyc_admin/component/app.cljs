@@ -1,6 +1,7 @@
 (ns vamtyc-admin.component.app
   (:require
-   [vamtyc-admin.component.lib.core :as lib]))
+   [vamtyc-admin.component.lib.panel :refer [panel]]
+   [vamtyc-admin.component.resources.request :refer [request]]))
 
 (defn app-main-item [res]
   [:div {:class "panel-block"}
@@ -24,6 +25,6 @@
 (defn app [res]
   [:section {:class "section"}
    [:div {:class "container"}
-    [lib/panel
-     [app-filter (:filter res)]
+    [panel
+     [request (:filter res) {:placeholder "search"}]
      [app-main (:main res)]]]])

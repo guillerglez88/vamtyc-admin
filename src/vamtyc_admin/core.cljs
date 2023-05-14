@@ -3,7 +3,7 @@
    [goog.dom :as gdom]
    [reagent.core :as reagent :refer [atom]]
    [reagent.dom :as rdom]
-   [vamtyc-admin.component.core :as cmp]))
+   [vamtyc-admin.component.app :refer [app]]))
 
 (def vamtyc-admin-res
   {:version "0.0.1-alpha-1"
@@ -91,7 +91,7 @@
   (gdom/getElement "app"))
 
 (defn mount [el]
-  (rdom/render [cmp/app vamtyc-admin-res] el))
+  (rdom/render [app vamtyc-admin-res] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]

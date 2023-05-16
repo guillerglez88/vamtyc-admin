@@ -67,6 +67,12 @@ main {
     box-shadow: 0 0.125em 0.25em rgba(10,10,10,.1);
 }
 
+.list header form {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+}
+
 .list header input {
     display: inline-flex;
     align-items: center;

@@ -8,12 +8,12 @@
     (fn [_lookup list attrs]
       [:section {:class "list"}
        [:header
-        [:form {:action @url :method (:method list)}]
-        [:input {:class "input"
-                 :type "text"
-                 :default-value @url
-                 :on-change set-url
-                 :placeholder (:placeholder attrs)}]]
+        [:form {:action @url :method :GET}
+         [:input {:type "text"
+                  :name "url"
+                  :default-value @url
+                  :on-change set-url
+                  :placeholder (:placeholder attrs)}]]]
        [:section {:class "items"}
         (for [item (:items list)]
           (let [list-item (-> item :type lookup)]

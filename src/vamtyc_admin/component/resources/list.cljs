@@ -3,5 +3,5 @@
 (defn render [lookup res]
   [:div
    (for [item (:items res)]
-     (let [render-item (-> item :code lookup)]
-       ^{:key (:id item)} [render-item item]))])
+     (let [list-item (-> item :type lookup)]
+       ^{:key (:id item)} [list-item item]))])

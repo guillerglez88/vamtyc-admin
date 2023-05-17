@@ -1,7 +1,10 @@
 (ns vamtyc-admin.component.resources.resource)
 
-(defn render [_lookup res]
-  [:div {:class "panel-block"}
-   [:span {:class "panel-icon"}
+(defn list-item [res]
+  [:div {:class "list-item"}
+   [:span {:class "icon"}
     [:i {:class "fa-solid fa-box"}]]
    (:desc res)])
+
+(defn render [_lookup res]
+  [list-item res])

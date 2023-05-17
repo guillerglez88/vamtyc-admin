@@ -7,18 +7,9 @@
 
 (def vamtyc-admin-res
   {:version "0.0.1-alpha-1"
-   :behavior [{:code "/Coding/vamtyc-admin-behaviour?code=trigger"
-               :on "/Coding/vamtyc-admin-behaviour-event?code=load"
-               :action "/Coding/vamtyc-admin-behaviour-action?code=xreq"
-               :target ["flter"]
-               :replace ["main"]}
-              {:code "/Coding/vamtyc-admin-behaviour?code=override"
-               :on "/Coding/vamtyc-admin-behaviour-event?code=navigate"
-               :action "/Coding/vamtyc-admin-behaviour-action?code=xreq"
+   :behavior [{:code "/Coding/vamtyc-admin-behavour?code=list-search"
+               :desc "Allow main list search"
                :target ["main"]}]
-   :filter {:type :Request
-            :method :GET
-            :url "/List?_of=Resource"}
    :main {:type "List",
           :url "/List?_of=Resource&_limit=5",
           :items [{:routes "/List?_of=Route&res-type=Resource",

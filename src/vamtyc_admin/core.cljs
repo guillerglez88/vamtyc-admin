@@ -7,9 +7,9 @@
 
 (def vamtyc-admin-res
   {:version "0.0.1-alpha-1"
-   :behavior [{:code "/Coding/vamtyc-admin-behavour?code=list-search"
-               :desc "Allow main list search"
-               :target ["main"]}]
+   :behaviour [{:code "/Coding/vamtyc-admin-behavour?code=list-search"
+                :desc "Allow main list search"
+                :target ["main"]}]
    :main {:type "List",
           :url "/List?_of=Resource&_limit=5",
           :items [{:routes "/List?_of=Route&res-type=Resource",

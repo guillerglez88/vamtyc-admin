@@ -35,4 +35,6 @@
        [:section {:class "items"}
         (for [item @items]
           (let [list-item (-> item :type lookup)]
-            ^{:key (:id item)} [list-item item]))]])))
+            ^{:key (:id item)}
+            [:div {:class "list-item"}
+             [list-item item]]))]])))

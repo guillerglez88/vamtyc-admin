@@ -1,7 +1,7 @@
 (ns vamtyc-admin.component.resources.resource)
 
 (defn list-item [res]
-  [:div {:class "list-item"}
+  [:div
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-box"}]]
    (:desc res)])

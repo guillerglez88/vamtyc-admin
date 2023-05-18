@@ -9,7 +9,8 @@
         method (-> form .-target .-method)]
     (-> (str "http://localhost:3000/" url)
         (fetch/request {:method method
-                        :headers {"Accept" "application/json"}}))))
+                        :headers {"Accept" "application/json"}})
+        (.then #(-> % :body (js->clj :keywordize-keys true))))))
 
 (defn render [_lookup list _attrs]
   (let [url (r/atom (:url list))
@@ -17,17 +18,15 @@
         set-url #(reset! url (-> % .-target .-value))
         search #(do (.preventDefault %)
                     (-> (search %)
-                        (.then (fn [resp]
-                                 (reset! url (:url resp))
-                                 (reset! items (:items resp))))))]
-                 
+                        (.then (fn [body]
+                                 (reset! url (:url body))
+                                 (reset! items (:items body))))))]
     (fn [lookup _list attrs]
       [:section {:class "list"}
        [:header
         [:form {:action @url
                 :method :GET
                 :on-submit search}
-
          [:input {:type "text"
                   :name "url"
                   :default-value @url

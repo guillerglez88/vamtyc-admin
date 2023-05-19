@@ -9,28 +9,36 @@
                       :headers {"Accept" "application/json"}})
       (.then #(-> % :body (js->clj :keywordize-keys true)))))
 
-(defn pagination [search nav]
-  [:nav
-   [:a {:title "first"
-        :href (:first nav)
-        :on-click #(search % (:first nav))}
-    [:span {:class "icon"}
-     [:i {:class "fa-solid fa-circle"}]]]
-   [:a {:title "prev"
-        :href (:prev nav)
-        :on-click #(search % (:prev nav))}
-    [:span {:class "icon"}
-     [:i {:class "fa-solid fa-caret-left"}]]]
-   [:a {:title "next"
-        :href (:next nav)
-        :on-click #(search % (:next nav))}
-    [:span {:class "icon"}
-     [:i {:class "fa-solid fa-caret-right"}]]]
-   [:a {:title "last"
-        :href (:last nav)
-        :on-click #(search % (:last nav))}
-    [:span {:class "icon"}
-     [:i {:class "fa-solid fa-circle"}]]]])
+(defn pagination [search curr nav]
+  (let [first (:first nav)
+        prev (:prev nav)
+        next (:next nav)
+        last (:last nav)
+        first? (= first curr)
+        last? (= last curr)]
+    [:nav
+     [:a {:class (when first? "is-active")
+          :title "first"
+          :href first
+          :on-click #(search % first)}
+      [:span {:class "icon"}
+       [:i {:class "fa-solid fa-circle"}]]]
+     [:a {:title "prev"
+          :href prev
+          :on-click #(search % prev)}
+      [:span {:class "icon"}
+       [:i {:class "fa-solid fa-caret-left"}]]]
+     [:a {:title "next"
+          :href next
+          :on-click #(search % next)}
+      [:span {:class "icon"}
+       [:i {:class "fa-solid fa-caret-right"}]]]
+     [:a {:class (when last? "is-active")
+          :title "last"
+          :href last
+          :on-click #(search % last)}
+      [:span {:class "icon"}
+       [:i {:class "fa-solid fa-circle"}]]]]))
 
 (defn render [_lookup list _attrs]
   (let [state (r/atom list)
@@ -61,4 +69,4 @@
              [list-item item]]))]
        [:footer
         [:p (str "total: " (:total @state))]
-        [pagination nav-search (:nav @state)]]])))
+        [pagination nav-search (:url @state) (:nav @state)]]])))

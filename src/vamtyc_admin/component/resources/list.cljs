@@ -1,51 +1,56 @@
 (ns vamtyc-admin.component.resources.list
   (:require
-   [reagent.core :as r]
    [lambdaisland.fetch :as fetch]
-   [clojure.string :as str]))
+   [reagent.core :as r]))
 
-(defn search [form]
-  (let [url (-> form .-target .-action (str/replace-first (. js/window -location) ""))
-        method (-> form .-target .-method)]
-    (-> (str "http://localhost:3000/" url)
-        (fetch/request {:method method
-                        :headers {"Accept" "application/json"}})
-        (.then #(-> % :body (js->clj :keywordize-keys true))))))
+(defn search [url]
+  (-> (str "http://localhost:3000" url)
+      (fetch/request {:method "GET"
+                      :headers {"Accept" "application/json"}})
+      (.then #(-> % :body (js->clj :keywordize-keys true)))))
 
-(defn pagination [nav]
+(defn pagination [search nav]
   [:nav
    [:a {:title "first"
-        :href (:first nav)}
+        :href (:first nav)
+        :on-click #(search % (:first nav))}
     [:span {:class "icon"}
      [:i {:class "fa-solid fa-circle"}]]]
    [:a {:title "prev"
-        :href (:prev nav)}
+        :href (:prev nav)
+        :on-click #(search % (:prev nav))}
     [:span {:class "icon"}
      [:i {:class "fa-solid fa-caret-left"}]]]
    [:a {:title "next"
-        :href (:next nav)}
+        :href (:next nav)
+        :on-click #(search % (:next nav))}
     [:span {:class "icon"}
      [:i {:class "fa-solid fa-caret-right"}]]]
    [:a {:title "last"
-        :href (:last nav)}
+        :href (:last nav)
+        :on-click #(search % (:last nav))}
     [:span {:class "icon"}
      [:i {:class "fa-solid fa-circle"}]]]])
 
 (defn render [_lookup list _attrs]
   (let [state (r/atom list)
         set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
-        search #(do (.preventDefault %)
-                    (-> (search %)
-                        (.then (fn [body] (reset! state body)))))]
+        form-search #(do (.preventDefault %)
+                         (-> (:url @state)
+                             (search)
+                             (.then (fn [body] (reset! state body)))))
+        nav-search #(do (.preventDefault %1)
+                        (-> (search %2)
+                            (.then (fn [body] (reset! state body)))))]
     (fn [lookup _list attrs]
       [:section {:class "list"}
        [:header
         [:form {:action (:url @state)
                 :method :GET
-                :on-submit search}
+                :on-submit form-search}
          [:input {:type "text"
                   :name "url"
-                  :default-value (:url @state)
+                  :value (:url @state)
                   :on-change set-url
                   :placeholder (:placeholder attrs)}]]]
        [:section {:class "items"}
@@ -56,4 +61,4 @@
              [list-item item]]))]
        [:footer
         [:p (str "total: " (:total @state))]
-        [pagination (:nav @state)]]])))
+        [pagination nav-search (:nav @state)]]])))

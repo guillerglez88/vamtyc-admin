@@ -40,7 +40,13 @@
       [:span {:class "icon"}
        [:i {:class "fa-solid fa-circle"}]]]]))
 
-(defn render [_lookup list _attrs]
+(defn list-item [_lookup list _attrs]
+  [:div
+   [:span {:class "icon"}
+    [:i {:class "fa-solid fa-list"}]]
+   (:url list)])
+
+(defn default [_lookup list _attrs]
   (let [state (r/atom list)
         set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
         form-search #(do (.preventDefault %)
@@ -66,7 +72,16 @@
           (let [list-item (-> item :type lookup)]
             ^{:key (:id item)}
             [:div {:class "list-item"}
-             [list-item item]]))]
+             [list-item item {:mode :list-item}]]))]
        [:footer
         [:p (str "total: " (:total @state))]
         [pagination nav-search (:url @state) (:nav @state)]]])))
+
+(def mode-displays
+  {:default default
+   :list-item list-item})
+
+(defn render [lookup list attrs]
+  (let [mode (-> attrs :mode (or :default))
+        display (get mode-displays mode)]
+    [display lookup list attrs]))

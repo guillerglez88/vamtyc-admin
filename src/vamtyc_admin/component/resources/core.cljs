@@ -2,20 +2,18 @@
   (:require
    [vamtyc-admin.component.resources.resource :as res]
    [vamtyc-admin.component.resources.list :as lst]
-   [vamtyc-admin.component.resources.request :as req]))
+   [vamtyc-admin.component.resources.route :as route]
+   [vamtyc-admin.component.resources.ddl :as ddl]
+   [vamtyc-admin.component.resources.queryp :as queryp]
+   [vamtyc-admin.component.resources.seq :as seq]))
 
-(defn not-supported [_lookup _res]
-  [:div
-    :p "not supported"])
-
-(def component-map {:Ddl       not-supported
-                    :Resource  res/render
-                    :Route     not-supported
-                    :Queryp    not-supported
-                    :List      lst/render
-                    :Seq       not-supported
-                    :Etag      not-supported
-                    :Request   req/render})
+(def component-map
+  {:Ddl       ddl/render
+   :Resource  res/render
+   :Route     route/render
+   :Queryp    queryp/render
+   :List      lst/render
+   :Seq       seq/render})
 
 (defn lookup [type]
   (let [type-kw (keyword type)]

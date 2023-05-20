@@ -2,19 +2,28 @@
   (:require [vamtyc-admin.component.resources.route :as sut]
             [cljs.test :as t :include-macros true :refer [deftest testing is]]))
 
-(deftest str-route-test
+(deftest str-path-test
   (testing "Can stringify route path"
-    (let [get-route {:path [{:code "/Coding/wellknown-params?code=type", :name "_type", :value "Ddl"}
-                            {:code "/Coding/wellknown-params?code=id", :name "_id"}]
-                     :method "GET"
-                     :name "read-ddl"
-                     :type "Route"
-                     :etag "15"
-                     :created "2023-05-06 16:29:39.01568"
-                     :modified "2023-05-06 16:29:39.01568"
-                     :id "ac72cf9e-779b-43cb-b811-568f95e6ea31"
-                     :resource "/Resource/ddl"
-                     :url "/Route/ac72cf9e-779b-43cb-b811-568f95e6ea31"
-                     :code "/Coding/handlers?code=read"}]
-      (is (= "GET    /Ddl/:_id"
-             (sut/str-route get-route))))))
+    (is (= "/Ddl/:_id"
+           (sut/str-path [{:code "/Coding/wellknown-params?code=type", :name "_type", :value "Ddl"}
+                          {:code "/Coding/wellknown-params?code=id", :name "_id"}])))
+    (is (= "/Resource"
+           (sut/str-path [{:code "/Coding/wellknown-params?code=type", :name "_type", :value "Resource"}])))
+    (is (= "/"
+           (sut/str-path nil)))))
+
+(deftest str-method-test
+  (testing "Can stringify route method"
+    (is (= "GET"
+           (sut/str-method :GET)))
+    (is (= "GET"
+           (sut/str-method :get)))
+    (is (= "GET"
+           (sut/str-method "get")))
+    (is (= "*"
+           (sut/str-method :*)))))
+
+(deftest padding-test
+  (testing "Can add padding to text"
+    (is (= "test------"
+           (sut/padding "test" 10 "-")))))

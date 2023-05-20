@@ -149,5 +149,22 @@ main {
 }
 
 .route .str-route {
+    display: inline-flex;
     font-family: monospace;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eff5fb;
+    color: #296fa8;
+    border-radius: 0.375em;
+    font-size: .75rem;
+    height: 2em;
+    line-height: 1.5;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+    margin-right: 0.5em;
 }

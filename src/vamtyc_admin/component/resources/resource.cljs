@@ -4,7 +4,14 @@
   [:div
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-box"}]]
-   (:desc res)])
+   [:section
+    [:header
+     [:span {:class "keyword"}
+      (->> (res :of)
+           (name)
+           (str "/"))]]
+    [:p
+     (:desc res)]]])
 
 (def mode-displays
   {:list-item list-item})

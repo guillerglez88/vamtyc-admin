@@ -49,13 +49,12 @@
 (defn default [_lookup list _attrs]
   (let [state (r/atom list)
         set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
+        action-search #(-> % search (.then (fn [body] (reset! state body))))
         form-search #(do (.preventDefault %)
-                         (-> (:url @state)
-                             (search)
-                             (.then (fn [body] (reset! state body)))))
+                         (action-search (:url @state)))
         nav-search #(do (.preventDefault %1)
-                        (-> (search %2)
-                            (.then (fn [body] (reset! state body)))))]
+                        (action-search %2))]
+    (action-search (:url @state))
     (fn [lookup _list attrs]
       [:section {:class "list"}
        [:header

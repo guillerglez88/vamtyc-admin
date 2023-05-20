@@ -22,9 +22,7 @@
    [:section
     [:header
      [:span {:class "keyword"}
-      (->> (:type res)
-           (name)
-           (str "/"))]]
+      (:url res)]]
     [:p]]])
 
 (defn lookup [type]

@@ -1,6 +1,7 @@
 (ns vamtyc-admin.component.resources.route-test
-  (:require [vamtyc-admin.component.resources.route :as sut]
-            [cljs.test :as t :include-macros true :refer [deftest testing is]]))
+  (:require
+   [cljs.test :as t :include-macros true :refer [deftest is testing]]
+   [vamtyc-admin.component.resources.route :as sut]))
 
 (deftest str-path-test
   (testing "Can stringify route path"
@@ -22,8 +23,3 @@
            (sut/str-method "get")))
     (is (= "*"
            (sut/str-method :*)))))
-
-(deftest padding-test
-  (testing "Can add padding to text"
-    (is (= "test------"
-           (sut/padding "test" 10 "-")))))

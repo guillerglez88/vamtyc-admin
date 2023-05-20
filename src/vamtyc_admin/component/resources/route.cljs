@@ -1,16 +1,7 @@
 (ns vamtyc-admin.component.resources.route
   (:require
    [clojure.string :as str]
-   [goog.string :as gstring]))
-
-(def html-nbsp (gstring/unescapeEntities "&nbsp;"))
-
-(defn padding [text count pad-str]
-  (->> (. text -length)
-       (- count)
-       (#(repeat % pad-str))
-       (apply str)
-       (str text)))
+   [vamtyc-admin.lib.util :as util]))
 
 (defn str-method [method]
   (-> (or method :*)
@@ -29,7 +20,7 @@
     [:i {:class "fa-solid fa-route"}]]
    [:div {:class "str-route"}
     [:span {:class "badge"}
-     (-> route :method str-method (padding 6 html-nbsp))]
+     (-> route :method str-method (util/padding 6 util/html-nbsp))]
     [:span
      (-> route :path str-path)]]])
 

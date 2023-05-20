@@ -21,7 +21,7 @@
     [:header {:class "str-route"}
      [:span {:class "method keyword"}
       (-> route :method str-method)]
-     [:span
+     [:span {:class "keyword"}
       (-> route :path str-path)]]]])
 
 (def mode-displays

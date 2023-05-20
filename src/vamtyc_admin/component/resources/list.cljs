@@ -1,13 +1,7 @@
 (ns vamtyc-admin.component.resources.list
   (:require
-   [lambdaisland.fetch :as fetch]
-   [reagent.core :as r]))
-
-(defn search [url]
-  (-> (str "http://localhost:3000" url)
-      (fetch/request {:method "GET"
-                      :headers {"Accept" "application/json"}})
-      (.then #(-> % :body (js->clj :keywordize-keys true)))))
+   [reagent.core :as r]
+   [vamtyc-admin.lib.store :as store]))
 
 (defn pagination [search curr nav]
   (let [first (:first nav)
@@ -49,7 +43,7 @@
 (defn default [_lookup list _attrs]
   (let [state (r/atom list)
         set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
-        action-search #(-> % search (.then (fn [body] (reset! state body))))
+        action-search #(-> % store/search (.then (fn [body] (reset! state body))))
         form-search #(do (.preventDefault %)
                          (action-search (:url @state)))
         nav-search #(do (.preventDefault %1)

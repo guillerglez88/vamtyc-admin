@@ -1,6 +1,7 @@
 (ns vamtyc-admin.component.resources.route
   (:require
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [vamtyc-admin.component.codings.core :as coding]))
 
 (defn str-method [method]
   (-> (or method :*)
@@ -22,7 +23,8 @@
      [:span {:class "method keyword"}
       (-> route :method str-method)]
      [:span {:class "keyword"}
-      (-> route :path str-path)]]]])
+      (-> route :path str-path)]]
+    [coding/description (:code route)]]])
 
 (def mode-displays
   {:list-item list-item})

@@ -1,7 +1,6 @@
 (ns vamtyc-admin.component.resources.route
   (:require
-   [clojure.string :as str]
-   [vamtyc-admin.lib.util :as util]))
+   [clojure.string :as str]))
 
 (defn str-method [method]
   (-> (or method :*)
@@ -18,11 +17,12 @@
   [:div {:class "route"}
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-route"}]]
-   [:div {:class "str-route"}
-    [:span {:class "badge"}
-     (-> route :method str-method (util/padding 6 util/html-nbsp))]
-    [:span
-     (-> route :path str-path)]]])
+   [:section
+    [:header {:class "str-route"}
+     [:span {:class "method keyword"}
+      (-> route :method str-method)]
+     [:span
+      (-> route :path str-path)]]]])
 
 (def mode-displays
   {:list-item list-item})

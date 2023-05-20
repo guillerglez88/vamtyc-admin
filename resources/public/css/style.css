@@ -47,6 +47,36 @@ main {
     padding: 3rem 1.5rem;
 }
 
+.keyword {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eff5fb;
+    color: #296fa8;
+    border-radius: 0.375em;
+    font-size: .75rem;
+    height: 2em;
+    line-height: 1.5;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+    margin-right: 0.5em;
+    font-family: monospace;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1em;
+    text-align: center;
+    vertical-align: top;
+    color: #7a7a7a;
+}
+
 /*:List*/
 
 .list {
@@ -58,7 +88,7 @@ main {
     position: relative
 }
 
-.list header {
+.list > header {
     display: flex;
     flex-grow: 1;
     align-items: stretch;
@@ -69,13 +99,13 @@ main {
     box-shadow: 0 0.125em 0.25em rgba(10,10,10,.1);
 }
 
-.list header form {
+.list > header form {
     position: relative;
     max-width: 100%;
     width: 100%;
 }
 
-.list header input {
+.list > header input {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
@@ -95,7 +125,7 @@ main {
     -webkit-appearance: none;
 }
 
-.list header input:focus {
+.list > header input:focus {
     border-color: #485fc7;
     box-shadow: 0 0 0 0.125em rgba(72,95,199,.25);
     outline-color: #485fc7;
@@ -113,21 +143,23 @@ main {
     border-bottom: 1px solid #ededed;
 }
 
-.icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    width: 1.5rem;
-    height: 1.5rem;
-    line-height: 1em;
-    text-align: center;
-    vertical-align: top;
-    color: #7a7a7a;
-}
-
 .list .items .list-item .icon {
     margin-right: 0.5em;
+}
+
+.list .items .list-item section {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.list .items .list-item section > header {
+    margin-bottom: .75rem;
+}
+
+.list .items .list-item section > p {
+    font-size: 1rem;
+    color: hsl(0, 0%, 48%);
 }
 
 .list footer {
@@ -148,23 +180,21 @@ main {
     color: hsl(141, 71%, 48%);
 }
 
+/*route*/
+
 .route .str-route {
     display: inline-flex;
     font-family: monospace;
 }
 
-.badge {
+.route .method {
+    min-width: 4rem;
+}
+
+/*queryp*/
+
+.queryp .name {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #eff5fb;
-    color: #296fa8;
-    border-radius: 0.375em;
-    font-size: .75rem;
-    height: 2em;
-    line-height: 1.5;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    white-space: nowrap;
-    margin-right: 0.5em;
+    font-family: monospace;
+    min-width: 5rem;
 }

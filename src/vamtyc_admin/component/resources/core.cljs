@@ -15,6 +15,18 @@
    :List      lst/render
    :Seq       seq/render})
 
+(defn not-implemented [_lookup res _attrs]
+  [:div
+   [:span {:class "icon"}
+    [:i {:class "fas fa-question"}]]
+   [:section
+    [:header
+     [:span {:class "keyword"}
+      (->> (:type res)
+           (name)
+           (str "/"))]]
+    [:p]]])
+
 (defn lookup [type]
   (let [type-kw (keyword type)]
-    (-> component-map type-kw (partial lookup))))
+    (-> component-map type-kw (or not-implemented) (partial lookup))))

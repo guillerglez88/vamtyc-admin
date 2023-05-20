@@ -1,4 +1,6 @@
-(ns vamtyc-admin.component.codings.handler)
+(ns vamtyc-admin.component.codings.handler
+  (:require
+    [vamtyc-admin.lib.store :as store]))
 
 (defn render [code]
-  [:p "blah"])
+  (-> (store/search code)))

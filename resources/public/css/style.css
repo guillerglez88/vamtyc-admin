@@ -143,6 +143,10 @@ main {
     border-bottom: 1px solid #ededed;
 }
 
+.list .items .list-item div {
+    display: flex;
+}
+
 .list .items .list-item .icon {
     margin-right: 0.5em;
 }

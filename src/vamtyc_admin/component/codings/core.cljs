@@ -14,7 +14,7 @@
 (defn description [code]
   (when (->> code (contains? @code-descs) not)
     (fetch-coding code))
-  [:p
+  [:span
    (-> @code-descs (get code) (or ""))])
 
 (def mode-displays

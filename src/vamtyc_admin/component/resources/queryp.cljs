@@ -1,4 +1,6 @@
-(ns vamtyc-admin.component.resources.queryp)
+(ns vamtyc-admin.component.resources.queryp
+  (:require
+    [vamtyc-admin.component.codings.core :as coding]))
 
 (defn list-item [_lookup queryp _attrs]
   [:div {:class "queryp"}
@@ -8,7 +10,9 @@
     [:header {:class "keyword"}
      (-> queryp :name name)]
     [:p {:class "desc"}
-     (:desc queryp)]]])
+     [:span
+      (-> queryp :desc (str ". "))]
+     [coding/description (:code queryp)]]]])
 
 (def mode-displays
   {:list-item list-item})

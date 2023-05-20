@@ -24,7 +24,8 @@
       (-> route :method str-method)]
      [:span {:class "keyword"}
       (-> route :path str-path)]]
-    [coding/description (:code route)]]])
+    [:p
+     [coding/description (:code route)]]]])
 
 (def mode-displays
   {:list-item list-item})

@@ -4,6 +4,46 @@
    [vamtyc-admin.lib.store :as store]
    [vamtyc-admin.lib.util :as util]))
 
+(defn set-url
+  ([resource inline?]
+   (partial set-url resource inline?))
+  ([resource inline? evt]
+   (let [url (-> evt .-target .-value)]
+     (reset! resource (assoc @resource :url url))
+     (reset! inline? (= url (util/inline-text url))))))
+
+(defn search
+  ([resource inline?]
+   (partial search resource inline?))
+  ([resource inline? url]
+   (-> (util/inline-text url)
+       (store/search)
+       (.then (fn [body]
+                (let [transformed (if @inline? (:url body) (-> body :url util/multiline-url))]
+                  (->> (assoc body :url transformed)
+                       (reset! resource))))))))
+
+(defn form-submit
+  ([resource inline?]
+   (partial form-submit resource inline?))
+  ([resource inline? evt]
+   (.preventDefault evt)
+   (search resource inline? (:url @resource))))
+
+(defn input-keydown
+  ([resource inline?]
+   (partial input-keydown resource inline?))
+  ([resource inline? evt]
+   (when (util/hot-key? evt :ctrlKey true :key "Enter")
+     (search resource inline? (:url @resource)))))
+
+(defn navigate
+  ([resource inline?]
+   (partial navigate resource inline?))
+  ([resource inline? evt url]
+   (.preventDefault evt)
+   (search resource inline? url)))
+
 (defn pagination [search curr nav]
   (let [inline-curr (util/inline-text curr)
         first (:first nav)
@@ -43,47 +83,34 @@
    (:url list)])
 
 (defn default [_lookup list _attrs]
-  (let [state (r/atom list)
-        set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
-        action-search #(-> (util/inline-text %)
-                           (store/search)
-                           (.then (fn [body]
-                                    (->> (:url body)
-                                         (util/multiline-url)
-                                         (assoc body :url)
-                                         (reset! state)))))
-        form-search #(do (.preventDefault %)
-                         (action-search (:url @state)))
-        input-key #(when (util/hot-key? % :ctrlKey true :key "Enter")
-                     (action-search (:url @state)))
-        nav-search #(do (.preventDefault %1)
-                        (action-search %2))]
-    (action-search (:url @state))
+  (let [resource (r/atom list)
+        inline? (r/atom true)]
+    (search resource inline? (:url @resource))
     (fn [lookup _list attrs]
       [:section {:class "list"}
        [:header
-        [:form {:action (:url @state)
+        [:form {:action (:url @resource)
                 :method :GET
-                :on-submit form-search}
+                :on-submit (form-submit resource inline?)}
          [:textarea {:type "text"
                      :name "url"
-                     :value (:url @state)
-                     :on-change set-url
-                     :on-key-down input-key
+                     :value (:url @resource)
+                     :on-change (set-url resource inline?)
+                     :on-key-down (input-keydown resource inline?)
                      :rows "5"
                      :placeholder (:placeholder attrs)}]]
         [:p
          [:span {:class "keyword kw-2"} "CTRL"]
          [:span {:class "keyword kw-2"} "Enter"]]]
        [:section {:class "items"}
-        (for [item (:items @state)]
+        (for [item (:items @resource)]
           (let [list-item (-> item :type lookup)]
             ^{:key (:id item)}
             [:div {:class "list-item"}
              [list-item item {:mode :list-item}]]))]
        [:footer
-        [:p (str "total: " (:total @state))]
-        [pagination nav-search (:url @state) (:nav @state)]]])))
+        [:p (str "total: " (:total @resource))]
+        [pagination (navigate resource inline?) (:url @resource) (:nav @resource)]]])))
 
 (def mode-displays
   {:default default

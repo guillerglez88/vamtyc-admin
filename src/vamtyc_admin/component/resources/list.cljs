@@ -5,12 +5,13 @@
    [vamtyc-admin.lib.util :as util]))
 
 (defn pagination [search curr nav]
-  (let [first (:first nav)
+  (let [inline-curr (util/inline-text curr)
+        first (:first nav)
         prev (:prev nav)
         next (:next nav)
         last (:last nav)
-        first? (= first curr)
-        last? (= last curr)]
+        first? (= first inline-curr)
+        last? (= last inline-curr)]
     [:nav
      [:a {:class (when first? "is-active")
           :title "first"
@@ -47,7 +48,9 @@
         action-search #(-> (util/inline-text %)
                            (store/search)
                            (.then (fn [body]
-                                    (->> (assoc body :url (:url @state))
+                                    (->> (:url body)
+                                         (util/multiline-url)
+                                         (assoc body :url)
                                          (reset! state)))))
         form-search #(do (.preventDefault %)
                          (action-search (:url @state)))

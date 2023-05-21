@@ -1,7 +1,7 @@
 (ns vamtyc-admin.component.resources.route
   (:require
    [clojure.string :as str]
-   [vamtyc-admin.component.codings.core :as coding]))
+   [vamtyc-admin.component.coding :as coding]))
 
 (defn str-method [method]
   (-> (or method :*)

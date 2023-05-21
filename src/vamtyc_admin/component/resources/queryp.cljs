@@ -1,6 +1,6 @@
 (ns vamtyc-admin.component.resources.queryp
   (:require
-    [vamtyc-admin.component.codings.core :as coding]))
+    [vamtyc-admin.component.coding :as coding]))
 
 (defn list-item [_lookup queryp _attrs]
   [:div {:class "queryp"}

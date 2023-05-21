@@ -64,6 +64,14 @@ main {
     font-family: monospace;
 }
 
+.keyword.kw-1 {
+    background-color: hsl(0, 0%, 98%);
+}
+
+.keyword.kw-2{
+    background-color: hsl(142, 52%, 96%);
+}
+
 .icon {
     display: inline-flex;
     align-items: center;

@@ -13,13 +13,13 @@
       [:header
        [:span {:class "keyword"}
         (:url queryp)]]
-      [:p
-       [:span {:class "keyword kw-1"}
-        (str "/" of "?" qp-name "=" default)]]
       [:p {:class "desc"}
        [:span
         (-> queryp :desc (str ". "))]
-       [coding/description (:code queryp)]]]]))
+       [coding/description (:code queryp)]]
+      [:p
+       [:span {:class "keyword kw-1"}
+        (str "/" of "?" qp-name "=" default)]]]]))
 
 (def mode-displays
   {:list-item list-item})

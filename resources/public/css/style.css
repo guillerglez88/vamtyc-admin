@@ -191,22 +191,3 @@ main {
 .list footer .is-active .icon {
     color: hsl(141, 71%, 48%);
 }
-
-/*route*/
-
-.route .str-route {
-    display: inline-flex;
-    font-family: monospace;
-}
-
-.route .method {
-    min-width: 4rem;
-}
-
-/*queryp*/
-
-.queryp .name {
-    display: inline-flex;
-    font-family: monospace;
-    min-width: 5rem;
-}

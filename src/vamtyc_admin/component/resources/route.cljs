@@ -22,15 +22,15 @@
     [:header
      [:span {:class "keyword"}
       (:url route)]]
-    [:p {:class "str-route"}
-     [:span {:class "method keyword kw-1"
+    [:p
+     [coding/description (:code route)]]
+    [:p
+     [:span {:class "keyword kw-1"
              :title "HTTP method"}
       (-> route :method str-method)]
      [:span {:class "keyword kw-1"
              :title "Route path"}
-      (-> route :path str-path)]]
-    [:p
-     [coding/description (:code route)]]]])
+      (-> route :path str-path)]]]])
 
 (def mode-displays
   {:list-item list-item})

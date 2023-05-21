@@ -1,10 +1,15 @@
 (ns vamtyc-admin.component.resources.ddl)
 
 (defn list-item [_lookup ddl _attrs]
-  [:div
+  [:div {:class "ddl"}
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-database"}]]
-   (:desc ddl)])
+   [:section
+    [:header
+     [:span {:class "keyword"}
+      (:url ddl)]]
+    [:p
+     (:desc ddl)]]])
 
 (def mode-displays
   {:list-item list-item})

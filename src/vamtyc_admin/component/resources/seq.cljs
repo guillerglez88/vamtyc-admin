@@ -1,10 +1,15 @@
 (ns vamtyc-admin.component.resources.seq)
 
 (defn list-item [_lookup seq _attrs]
-  [:div
+  [:div {:class "seq"}
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-arrow-down-1-9"}]]
-   (:desc seq)])
+   [:section
+    [:header
+     [:span {:class "keyword"}
+      (:url seq)]]
+    [:p
+     (:desc seq)]]])
 
 (def mode-displays
   {:list-item list-item})

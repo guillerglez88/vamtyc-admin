@@ -12,6 +12,9 @@
      [:section
       [:header
        [:span {:class "keyword"}
+        (:url queryp)]]
+      [:p
+       [:span {:class "keyword kw-1"}
         (str "/" of "?" qp-name "=" default)]]
       [:p {:class "desc"}
        [:span

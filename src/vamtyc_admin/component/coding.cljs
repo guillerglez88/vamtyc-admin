@@ -25,9 +25,11 @@
        (:url coding)]]
      [:p
       (for [code (-> coding :codes (or []))]
-        [:span {:class "keyword kw-1"
-                :title (:desc code)}
-         (-> code :code (guri/getParamValue "code"))])]]]))
+        (let [ccode (-> code :code (guri/getParamValue "code"))]
+          ^{:key ccode}
+          [:span {:class "keyword kw-1"
+                  :title (:desc code)}
+           ccode]))]]]))
 
 
 (defn description

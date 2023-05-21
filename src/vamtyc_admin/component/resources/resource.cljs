@@ -7,9 +7,7 @@
    [:section
     [:header
      [:span {:class "keyword"}
-      (->> (res :of)
-           (name)
-           (str "/"))]]
+      (:url res)]]
     [:p
      (:desc res)]]])
 

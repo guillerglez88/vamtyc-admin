@@ -1,7 +1,8 @@
 (ns vamtyc-admin.component.resources.list
   (:require
    [reagent.core :as r]
-   [vamtyc-admin.lib.store :as store]))
+   [vamtyc-admin.lib.store :as store]
+   [vamtyc-admin.lib.util :as util]))
 
 (defn pagination [search curr nav]
   (let [first (:first nav)
@@ -43,9 +44,15 @@
 (defn default [_lookup list _attrs]
   (let [state (r/atom list)
         set-url #(reset! state (assoc @state :url (-> % .-target .-value)))
-        action-search #(-> % store/search (.then (fn [body] (reset! state body))))
+        action-search #(-> (util/inline-text %)
+                           (store/search)
+                           (.then (fn [body]
+                                    (->> (assoc body :url (:url @state))
+                                         (reset! state)))))
         form-search #(do (.preventDefault %)
                          (action-search (:url @state)))
+        input-key #(when (util/hot-key? % :ctrlKey true :key "Enter")
+                     (action-search (:url @state)))
         nav-search #(do (.preventDefault %1)
                         (action-search %2))]
     (action-search (:url @state))
@@ -55,11 +62,16 @@
         [:form {:action (:url @state)
                 :method :GET
                 :on-submit form-search}
-         [:input {:type "text"
-                  :name "url"
-                  :value (:url @state)
-                  :on-change set-url
-                  :placeholder (:placeholder attrs)}]]]
+         [:textarea {:type "text"
+                     :name "url"
+                     :value (:url @state)
+                     :on-change set-url
+                     :on-key-down input-key
+                     :rows "5"
+                     :placeholder (:placeholder attrs)}]]
+        [:p
+         [:span {:class "keyword kw-2"} "CTRL"]
+         [:span {:class "keyword kw-2"} "Enter"]]]
        [:section {:class "items"}
         (for [item (:items @state)]
           (let [list-item (-> item :type lookup)]

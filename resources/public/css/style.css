@@ -98,6 +98,7 @@ main {
 
 .list > header {
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
     align-items: stretch;
     background-color: transparent;
@@ -113,17 +114,19 @@ main {
     width: 100%;
 }
 
-.list > header input {
+.list > header input,
+.list > header textarea {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
     position: relative;
     vertical-align: top;
     max-width: 100%;
+    min-width: 100%;
     width: 100%;
-    height: 2.5em;
     line-height: 1.5;
     font-size: 1rem;
+    margin-bottom: .75rem;
     padding: calc(0.5em - 1px) calc(0.75em - 1px);
     background-color: #fff;
     border: 1px solid #dbdbdb;
@@ -131,12 +134,18 @@ main {
     color: #363636;
     box-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05);
     -webkit-appearance: none;
+    font-family: monospace;
 }
 
-.list > header input:focus {
+.list > header input:focus,
+.list > header textarea:focus {
     border-color: #485fc7;
     box-shadow: 0 0 0 0.125em rgba(72,95,199,.25);
     outline-color: #485fc7;
+}
+
+.list > header input {
+    height: 2.5em;
 }
 
 .list .items .list-item {

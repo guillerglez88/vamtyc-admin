@@ -19,10 +19,15 @@
    [:span {:class "icon"}
     [:i {:class "fa-solid fa-route"}]]
    [:section
-    [:header {:class "str-route"}
-     [:span {:class "method keyword"}
-      (-> route :method str-method)]
+    [:header
      [:span {:class "keyword"}
+      (:url route)]]
+    [:p {:class "str-route"}
+     [:span {:class "method keyword kw-1"
+             :title "HTTP method"}
+      (-> route :method str-method)]
+     [:span {:class "keyword kw-1"
+             :title "Route path"}
       (-> route :path str-path)]]
     [:p
      [coding/description (:code route)]]]])

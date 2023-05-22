@@ -23,4 +23,7 @@
 (defn app [res]
   (let [bxs (resolve-bxs res ["main"])
         main-attrs (list-attrs bxs)]
-    [lst/render res/lookup (:main res) main-attrs]))
+    [:div {:class "workspace"}
+     [:section {:class "explorer"}
+      [lst/render res/lookup (:main res) main-attrs]]
+     [:section {:class "editor"}]]))

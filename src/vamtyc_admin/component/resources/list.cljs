@@ -45,11 +45,12 @@
    (search resource inline? url)))
 
 (defn select-item
-  ([item-url selected]
-   (partial select-item item-url selected))
-  ([item-url selected evt]
+  ([item-url selected attrs]
+   (partial select-item item-url selected attrs))
+  ([item-url selected attrs evt]
    (.preventDefault evt)
-   (reset! selected item-url)))
+   (reset! selected item-url)
+   (-> attrs :on-selected (or (fn [_url] ())) (#(% item-url)))))
 
 (defn pagination [search curr nav]
   (let [inline-curr (util/inline-text curr)
@@ -119,7 +120,7 @@
               [:a {:class (str "list-item"
                                (when (= selected-url item-url) " is-selected"))
                    :href item-url
-                   :on-click (select-item item-url selected)}
+                   :on-click (select-item item-url selected attrs)}
                [list-item item {:mode :list-item}]]))]
          [:footer
           [:p (str "total: " (:total @resource))]

@@ -1,7 +1,9 @@
 (ns vamtyc-admin.component.app
   (:require
    [vamtyc-admin.component.resources.core :as res]
-   [vamtyc-admin.component.resources.list :as lst]))
+   [vamtyc-admin.component.resources.list :as lst]
+   [reagent.core :as r]
+   [vamtyc-admin.lib.store :as store]))
 
 (def bx-list-search "/Coding/vamtyc-admin-behavour?code=list-search")
 
@@ -20,10 +22,16 @@
         flag? #(-> % codes nil? not)]
     {:search (flag? bx-list-search)}))
 
+(defn edit [url editor-res]
+  (-> (store/read url)
+      (.then #(reset! editor-res %))))
+
 (defn app [res]
-  (let [bxs (resolve-bxs res ["main"])
-        main-attrs (list-attrs bxs)]
+  (let [editor-res (r/atom nil)
+        bxs (resolve-bxs res ["main"])
+        main-attrs (list-attrs bxs)
+        attrs (merge main-attrs {:on-selected #(edit % editor-res)})]
     [:div {:class "workspace"}
      [:section {:class "explorer"}
-      [lst/render res/lookup (:main res) main-attrs]]
+      [lst/render res/lookup (:main res) attrs]]
      [:section {:class "editor"}]]))

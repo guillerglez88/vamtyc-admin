@@ -9,3 +9,9 @@
       (fetch/request {:method "GET"
                       :headers {"Accept" "application/json"}})
       (.then #(-> % :body (js->clj :keywordize-keys true)))))
+
+(defn read [url]
+  (-> (str base-url url)
+      (fetch/request {:method "GET"
+                      :headers {"Accept" "application/json"}})
+      (.then #(-> % :body (js->clj :keywordize-keys true)))))

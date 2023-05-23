@@ -44,6 +44,13 @@
    (.preventDefault evt)
    (search resource inline? url)))
 
+(defn select-item
+  ([item-url selected]
+   (partial select-item item-url selected))
+  ([item-url selected evt]
+   (.preventDefault evt)
+   (reset! selected item-url)))
+
 (defn pagination [search curr nav]
   (let [inline-curr (util/inline-text curr)
         first (:first nav)
@@ -84,33 +91,39 @@
 
 (defn default [_lookup list _attrs]
   (let [resource (r/atom list)
-        inline? (r/atom true)]
+        inline? (r/atom true)
+        selected (r/atom nil)]
     (search resource inline? (:url @resource))
     (fn [lookup _list attrs]
-      [:section {:class "list"}
-       [:header
-        [:form {:action (:url @resource)
-                :method :GET
-                :on-submit (form-submit resource inline?)}
-         [:textarea {:type "text"
-                     :name "url"
-                     :value (:url @resource)
-                     :on-change (set-url resource inline?)
-                     :on-key-down (input-keydown resource inline?)
-                     :rows "5"
-                     :placeholder (:placeholder attrs)}]]
-        [:p
-         [:span {:class "keyword kw-2"} "CTRL"]
-         [:span {:class "keyword kw-2"} "Enter"]]]
-       [:section {:class "items"}
-        (for [item (:items @resource)]
-          (let [list-item (-> item :type lookup)]
-            ^{:key (:id item)}
-            [:div {:class "list-item"}
-             [list-item item {:mode :list-item}]]))]
-       [:footer
-        [:p (str "total: " (:total @resource))]
-        [pagination (navigate resource inline?) (:url @resource) (:nav @resource)]]])))
+      (let [selected-url @selected]
+        [:section {:class "list"}
+         [:header
+          [:form {:action (:url @resource)
+                  :method :GET
+                  :on-submit (form-submit resource inline?)}
+           [:textarea {:type "text"
+                       :name "url"
+                       :value (:url @resource)
+                       :on-change (set-url resource inline?)
+                       :on-key-down (input-keydown resource inline?)
+                       :rows "5"
+                       :placeholder (:placeholder attrs)}]]
+          [:p
+           [:span {:class "keyword kw-2"} "CTRL"]
+           [:span {:class "keyword kw-2"} "Enter"]]]
+         [:section {:class "items"}
+          (for [item (:items @resource)]
+            (let [list-item (-> item :type lookup)
+                  item-url (:url item)]
+              ^{:key (:id item)}
+              [:a {:class (str "list-item"
+                               (when (= selected-url item-url) " is-selected"))
+                   :href item-url
+                   :on-click (select-item item-url selected)}
+               [list-item item {:mode :list-item}]]))]
+         [:footer
+          [:p (str "total: " (:total @resource))]
+          [pagination (navigate resource inline?) (:url @resource) (:nav @resource)]]]))))
 
 (def mode-displays
   {:default default

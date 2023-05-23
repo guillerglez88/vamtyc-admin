@@ -205,6 +205,15 @@ main {
     padding: 0.5em 0.75em;
 }
 
+.list .items .list-item:hover {
+    background-color: #f5f5f5;
+}
+
+.list .items .list-item.is-selected {
+    background-color: #f5f5f5;
+    border-left: 0.6rem solid #48c78e;
+}
+
 .list .items .list-item:not(:last-child) {
     border-bottom: 1px solid #ededed;
 }

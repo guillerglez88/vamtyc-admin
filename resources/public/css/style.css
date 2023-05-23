@@ -107,9 +107,11 @@ main {
     line-height: 1.5;
     padding-left: 0.75em;
     padding-right: 0.75em;
-    white-space: nowrap;
     margin-right: 0.5em;
     font-family: monospace;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .keyword.kw-1 {
@@ -136,6 +138,8 @@ main {
 /*:List*/
 
 .list {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     border-radius: .25rem;
     box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
@@ -197,6 +201,12 @@ main {
     height: 2.5em;
 }
 
+
+.list .items {
+    display: flex;
+    flex-direction: column;
+}
+
 .list .items .list-item {
     display: flex;
     align-items: center;
@@ -211,7 +221,7 @@ main {
 
 .list .items .list-item.is-selected {
     background-color: #f5f5f5;
-    border-left: 0.6rem solid #48c78e;
+    border-left: 3px solid #48c78e;
 }
 
 .list .items .list-item:not(:last-child) {
@@ -220,6 +230,8 @@ main {
 
 .list .items .list-item div {
     display: flex;
+    overflow: hidden;
+    flex-grow: 1;
 }
 
 .list .items .list-item .icon {
@@ -229,11 +241,16 @@ main {
 .list .items .list-item section {
     display: inline-flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: flex-start;
+    overflow: hidden;
 }
 
 .list .items .list-item section > header {
+    display: flex;
+    flex-grow: 1;
     margin-bottom: .75rem;
+    overflow: hidden;
 }
 
 .list .items .list-item section > p {

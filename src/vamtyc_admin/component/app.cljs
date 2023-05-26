@@ -40,4 +40,9 @@
          [:header
           [:span {:class "keyword"}
            (:url @editor-res)]
-          [:nav]]]]])))
+          [:nav
+           [:a {:class "keyword kw-3"} "JSON"]
+           [:a {:class "keyword kw-3"} "YAML"]
+           [:a {:class "keyword kw-3"} "TABLE"]]]
+         [:section]
+         [:footer]]]])))

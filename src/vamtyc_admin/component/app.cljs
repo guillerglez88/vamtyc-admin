@@ -31,7 +31,13 @@
         bxs (resolve-bxs res ["main"])
         main-attrs (list-attrs bxs)
         attrs (merge main-attrs {:on-selected #(edit % editor-res)})]
-    [:div {:class "workspace"}
-     [:section {:class "explorer"}
-      [lst/render res/lookup (:main res) attrs]]
-     [:section {:class "editor"}]]))
+    (fn [_res]
+      [:div {:class "workspace"}
+       [:section {:class "explorer"}
+        [lst/render res/lookup (:main res) attrs]]
+       [:section {:class "editor"}
+        [:section
+         [:header
+          [:span {:class "keyword"}
+           (:url @editor-res)]
+          [:nav]]]]])))

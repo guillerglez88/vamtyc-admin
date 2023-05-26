@@ -140,6 +140,7 @@ main {
 .list {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     background-color: #fff;
     border-radius: .25rem;
     box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
@@ -152,7 +153,6 @@ main {
 .list > header {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     align-items: stretch;
     background-color: transparent;
     color: #363636;
@@ -205,6 +205,7 @@ main {
 .list .items {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .list .items .list-item {

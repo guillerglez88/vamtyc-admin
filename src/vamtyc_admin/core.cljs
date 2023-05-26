@@ -11,7 +11,7 @@
                 :desc "Allow main list search"
                 :target ["main"]}]
    :main {:type "List",
-          :url "/List?_of=Resource&_limit=10&_offset=0",
+          :url "/List?_of=Queryp&_limit=2&_offset=0",
           :items [],
           :total 0}})
 

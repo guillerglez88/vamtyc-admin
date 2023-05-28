@@ -3,7 +3,8 @@
    [vamtyc-admin.component.resources.core :as res]
    [vamtyc-admin.component.resources.list :as lst]
    [reagent.core :as r]
-   [vamtyc-admin.lib.store :as store]))
+   [vamtyc-admin.lib.store :as store]
+   [vamtyc-admin.component.editor :as editor]))
 
 (def bx-list-search "/Coding/vamtyc-admin-behavour?code=list-search")
 
@@ -46,5 +47,5 @@
            [:a {:class "keyword kw-3"} "TABLE"]]]
          [:section
           (when-let [eres @editor-res]
-            (-> eres :type res/lookup (vector eres {:mode :table})))]
+            [editor/render eres])]
          [:footer]]]])))

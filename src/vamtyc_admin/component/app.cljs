@@ -44,6 +44,7 @@
            [:a {:class "keyword kw-3"} "JSON"]
            [:a {:class "keyword kw-3"} "YAML"]
            [:a {:class "keyword kw-3"} "TABLE"]]]
-         [:section]
-          ;; (-> @editor-res :type res/lookup vector {:mode :table})]
+         [:section
+          (when-let [eres @editor-res]
+            (-> eres :type res/lookup (vector eres {:mode :table})))]
          [:footer]]]])))

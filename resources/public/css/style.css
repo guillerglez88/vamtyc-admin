@@ -63,7 +63,7 @@ table tbody {
 table td{
     padding: 0.25em 0.5em;
     text-align: inherit;
-    border: 1px solid #dbdbdb;
+    border: 1px dotted #dbdbdb;
     border-width: 0 0 1px;
     vertical-align: top;
 }

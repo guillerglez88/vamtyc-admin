@@ -1,4 +1,6 @@
-(ns vamtyc-admin.component.resources.lib.table)
+(ns vamtyc-admin.component.resources.lib.table
+  (:require
+   [vamtyc-admin.lib.util :as util]))
 
 (defn render [res]
   [:table
@@ -9,7 +11,7 @@
      [:th
       "value"]]]
    [:tbody
-    (for [[field value index] (->> (seq res) (map-indexed #(conj %2 %1)))]
+    (for [[field value index] (->> (util/flat-obj res) (map-indexed #(conj %2 %1)))]
       ^{:key index}
       [:tr
        [:td

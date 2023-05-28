@@ -77,4 +77,20 @@
             ["gender" :male]]
            (sut/flat-obj {:name [{:given ["John" "M."]
                                   :family "Doe"}]
-                          :gender :male})))))
+                          :gender :male})))
+    (is (= [["path.name" "of"]
+            ["desc" "Filter Resource by of"]
+            ["type" "Queryp"]]
+           (sut/flat-obj {:path [{:name "of"}],
+                          :desc "Filter Resource by of",
+                          :type "Queryp",})))
+    (is (= [["path.name" "path"]
+            ["path.filter.code" "/Coding/wellknown-params?code=type"]
+            ["path.collection" true]
+            ["path.name" "value"]
+            ["type" "Queryp"]]
+           (sut/flat-obj {:path [{:name "path",
+                                  :filter {:code "/Coding/wellknown-params?code=type"},
+                                  :collection true}
+                                 {:name "value"}],
+                          :type "Queryp",})))))

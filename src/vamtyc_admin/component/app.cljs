@@ -45,4 +45,5 @@
            [:a {:class "keyword kw-3"} "YAML"]
            [:a {:class "keyword kw-3"} "TABLE"]]]
          [:section]
+          ;; (-> @editor-res :type res/lookup vector {:mode :table})]
          [:footer]]]])))

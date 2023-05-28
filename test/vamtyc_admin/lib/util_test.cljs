@@ -30,3 +30,51 @@
                                    :ctrlKey true
                                    :key "Control"})
                          :ctrlKey true :key "Enter")))))
+
+(deftest mapseg-test
+  (testing "Can segment sequence producing a tuple [head item tail] for each item in the sequence"
+    (is (= [[[] 1 [2 3 4 5]]
+            [[1] 2 [3 4 5]]
+            [[1 2] 3 [4 5]]
+            [[1 2 3] 4 [5]]
+            [[1 2 3 4] 5 []]]
+           (sut/mapseg [1 2 3 4 5] identity)))
+    (is (= [[[] 1 [2 3 4 5 6 7]]
+            [[1] 2 [3 4 5 6 7]]
+            [[1 2] 3 [4 5 6 7]]
+            [[1 2 3] 4 [5 6 7]]
+            [[1 2 3 4] 5 [6 7]]
+            [[1 2 3 4 5] 6 [7]]
+            [[1 2 3 4 5 6] 7 []]]
+           (sut/mapseg [1 2 3 4 5 6 7] identity)))
+    (is (= [[[] nil []]]
+           (sut/mapseg [] identity)))
+    (is (= [[[] 1 []]]
+           (sut/mapseg [1] identity)))
+    (is (= [[[] nil []]]
+           (sut/mapseg nil identity)))
+    (is (= [[[] 1 [2 3 4 5]]
+            [[2] 2 [3 4 5]]
+            [[2 4] 3 [4 5]]
+            [[2 4 6] 4 [5]]
+            [[2 4 6 8] 5 []]]
+           (sut/mapseg [1 2 3 4 5] (partial * 2))))))
+
+(deftest flat-obj-test
+  (testing "Can convert anything into a seq of pairs [key val]"
+    (is (= [["" 1]]
+           (sut/flat-obj 1)))
+    (is (= [["" nil]]
+           (sut/flat-obj nil)))
+    (is (= [["a" nil]]
+           (sut/flat-obj {:a nil})))
+    (is (= [["a" 1]
+            ["b" 2]]
+           (sut/flat-obj {:a 1, :b 2})))
+    (is (= [["name.given" "John"]
+            ["name.given" "M."]
+            ["name.family" "Doe"]
+            ["gender" :male]]
+           (sut/flat-obj {:name [{:given ["John" "M."]
+                                  :family "Doe"}]
+                          :gender :male})))))

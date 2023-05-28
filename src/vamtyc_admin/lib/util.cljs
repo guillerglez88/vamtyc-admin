@@ -28,3 +28,31 @@
        (filter (fn [[k v]] (= v (aget evt (name k)))))
        (count)
        (= (/ (count spec) 2))))
+
+(defn mapseg
+  ([items transform]
+   (mapseg [] (first items) (-> items rest vec) transform))
+  ([head item tail transform]
+   (if (empty? tail)
+     [[head item tail]]
+     (->> (mapseg (conj head (transform item))
+                  (first tail)
+                  (-> tail rest vec)
+                  transform)
+          (concat [[head item tail]])))))
+
+(defn flat-obj
+  ([res]
+   (flat-obj "" res))
+  ([key val]
+   (cond
+     (vector? val)  (->> (identity val)
+                         (mapcat #(flat-obj key %))
+                         (vec))
+     (map? val)     (->> (seq val)
+                         (mapcat (fn [[k v]]
+                                   (-> (if (= "" key) "" (str key "."))
+                                       (str (name k))
+                                       (flat-obj v))))
+                         (vec))
+     :else          (vector [key val]))))

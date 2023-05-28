@@ -17,4 +17,4 @@
        [:td
         field]
        [:td
-        value]])]])
+        (str value)]])]])

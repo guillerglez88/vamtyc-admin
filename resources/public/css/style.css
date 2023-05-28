@@ -143,6 +143,7 @@ main {
     font-weight: 700;
     padding: 0.75rem 1rem;
     box-shadow: 0 0.125em 0.25em rgba(10,10,10,.1);
+    margin-bottom: 0.25em;
 }
 
 .editor > section > section {

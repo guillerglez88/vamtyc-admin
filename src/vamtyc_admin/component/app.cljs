@@ -37,15 +37,4 @@
        [:section {:class "explorer"}
         [lst/render res/lookup (:main res) attrs]]
        [:section {:class "editor"}
-        [:section
-         [:header
-          [:span {:class "keyword"}
-           (:url @editor-res)]
-          [:nav
-           [:a {:class "keyword kw-3"} "JSON"]
-           [:a {:class "keyword kw-3"} "YAML"]
-           [:a {:class "keyword kw-3"} "TABLE"]]]
-         [:section
-          (when-let [eres @editor-res]
-            [editor/render eres])]
-         [:footer]]]])))
+        [editor/render @editor-res]]])))

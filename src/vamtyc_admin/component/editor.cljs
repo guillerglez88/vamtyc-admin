@@ -39,5 +39,7 @@
           "TABLE"]]]
        [:section
         (when res
-          (table/render res))]
+          (cond
+            (= wkf-table @format) (table/render res)
+            :else [:div]))]
        [:footer]])))

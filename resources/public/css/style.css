@@ -155,6 +155,19 @@ main header {
     margin-bottom: 0.25em;
 }
 
+.editor > section > header > nav i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1em;
+    text-align: center;
+    vertical-align: top;
+    color: hsl(141, 71%, 48%);
+}
+
 .editor > section > section {
     display: flex;
     flex-grow: 1;

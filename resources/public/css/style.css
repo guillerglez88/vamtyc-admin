@@ -113,7 +113,24 @@ main > header {
     justify-content: space-between;
     background-color: transparent;
     color: hsl(0, 0%, 71%);
-    padding: 0.75rem 1rem;
+    padding: 1rem 1rem;
+}
+
+.global-actions a {
+    background-color: #eff1fa;
+    color: #3850b7;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-color: transparent;
+    border-width: 1px;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(0.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(0.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
 }
 
 .workspace {

@@ -4,7 +4,8 @@
    [vamtyc-admin.component.resources.list :as lst]
    [reagent.core :as r]
    [vamtyc-admin.lib.store :as store]
-   [vamtyc-admin.component.editor :as editor]))
+   [vamtyc-admin.component.editor :as editor]
+   [vamtyc-admin.lib.util :as util]))
 
 (def bx-list-search "/Coding/vamtyc-admin-behavour?code=list-search")
 
@@ -35,7 +36,12 @@
     (fn [_res]
       [:<>
        [:header
-        store/base-url]
+        util/html-nbsp
+        [:div {:class "global-actions"}
+         [:a {:title "history"}
+          [:i {:class "fas fa-hourglass-half"}]]
+         [:a {:title "selection"}
+          [:i {:class "fas fa-cart-shopping"}]]]]
        [:section {:class "workspace"}
         [:section {:class "explorer"}
          [lst/render res/lookup (:main res) attrs]]

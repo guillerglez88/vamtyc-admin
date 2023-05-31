@@ -6,6 +6,7 @@ code,pre {
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
     font-family: monospace;
+    white-space: pre-wrap;
 }
 
 html {
@@ -92,7 +93,7 @@ main {
     height: 100%;
 }
 
-main header {
+main > header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

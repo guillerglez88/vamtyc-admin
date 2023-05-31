@@ -1,11 +1,11 @@
 (ns vamtyc-admin.component.editor
   (:require
    [reagent.core :as r]
-   [vamtyc-admin.component.resources.lib.table :as table]))
+   [vamtyc-admin.component.resources.lib.table :as table]
+   [vamtyc-admin.component.resources.lib.json :as json]))
 
 (def wkf-table  "/Coding/data-format?code=table")
 (def wkf-json   "/Coding/data-format?code=json")
-(def wkf-yaml   "/Coding/data-format?code=yaml")
 
 (defn select-format
   ([format to]
@@ -15,7 +15,7 @@
    (reset! format to)))
 
 (defn render [_res]
-  (let [format (r/atom wkf-table)]
+  (let [format (r/atom wkf-json)]
     (fn [res]
       [:section
        [:header
@@ -28,11 +28,6 @@
             [:i {:class  "fas fa-circle"}])
           "JSON"]
          [:a {:class "keyword kw-3"
-              :on-click (select-format format wkf-yaml)}
-          (when (= wkf-yaml @format)
-            [:i {:class  "fas fa-circle"}])
-          "YAML"]
-         [:a {:class "keyword kw-3"
               :on-click (select-format format wkf-table)}
           (when (= wkf-table @format)
             [:i {:class  "fas fa-circle"}])
@@ -41,5 +36,6 @@
         (when res
           (cond
             (= wkf-table @format) (table/render res)
+            (= wkf-json @format) (json/render res)
             :else [:div]))]
        [:footer]])))

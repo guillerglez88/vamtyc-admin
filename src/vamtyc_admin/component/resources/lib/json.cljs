@@ -1,6 +1,6 @@
 (ns vamtyc-admin.component.resources.lib.json)
 
-(def meta-props #{:etag :created :modified :url})
+(def meta-props #{:type :id :etag :created :modified :url})
 
 (defn pstr [obj]
   (.stringify js/JSON obj nil 2))

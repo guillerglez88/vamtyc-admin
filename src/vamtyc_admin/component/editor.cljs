@@ -21,18 +21,8 @@
        (when res
          [:header
           [:div
-           [:span {:class "keyword mb-2"}
-            (:url res)]
-           [:p
-            [:small {:title "etag"}
-             [:i {:class "fas fa-hashtag"}]
-             (:etag res)]
-            [:small {:title "created"}
-             [:i {:class "fas fa-square-plus"}]
-             (:created res)]
-            [:small {:title "modified"}
-             [:i {:class "fas fa-pen-to-square"}]
-             (:modified res)]]]
+           [:span {:class "keyword"}
+            (:url res)]]
           [:nav
            [:a {:class "keyword kw-3"
                 :on-click (select-format format wkf-json)}
@@ -50,4 +40,14 @@
             (= wkf-table @format) (table/render res)
             (= wkf-json @format) (json/render res)
             :else [:div]))]
-       [:footer]])))
+       [:footer
+        [:p
+         [:small {:title "etag"}
+          [:i {:class "fas fa-hashtag"}]
+          (:etag res)]
+         [:small {:title "created"}
+          [:i {:class "fas fa-square-plus"}]
+          (:created res)]
+         [:small {:title "modified"}
+          [:i {:class "fas fa-pen-to-square"}]
+          (:modified res)]]]])))

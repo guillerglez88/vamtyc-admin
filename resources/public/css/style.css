@@ -134,6 +134,10 @@ p > small {
     margin-right: 1em;
 }
 
+p > small i {
+    margin-right: 0.25em;
+}
+
 header small > i {
     display: inline-flex;
     align-items: center;

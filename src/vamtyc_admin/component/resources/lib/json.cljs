@@ -7,7 +7,7 @@
 
 (defn render [res]
   (->> (keys res)
-       (filter #(not (meta-props %)))
+       (filter #(-> % keyword meta-props not))
        (select-keys res)
        (clj->js)
        (pstr)

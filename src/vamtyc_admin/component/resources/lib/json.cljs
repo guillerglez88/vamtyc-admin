@@ -1,13 +1,13 @@
-(ns vamtyc-admin.component.resources.lib.json)
-
-(def meta-props #{:type :id :etag :created :modified :url})
+(ns vamtyc-admin.component.resources.lib.json
+  (:require
+   [vamtyc-admin.lib.util :as util]))
 
 (defn pstr [obj]
   (.stringify js/JSON obj nil 2))
 
 (defn render [res]
   (->> (keys res)
-       (filter #(-> % keyword meta-props not))
+       (filter #(-> % util/meta-prop? not))
        (select-keys res)
        (clj->js)
        (pstr)

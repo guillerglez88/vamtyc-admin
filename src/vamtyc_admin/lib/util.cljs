@@ -4,6 +4,10 @@
    [clojure.string :as str]))
 
 (def html-nbsp (gstring/unescapeEntities "&nbsp;"))
+(def meta-props #{:type :id :etag :created :modified :url})
+
+(defn meta-prop? [key]
+  (-> key keyword meta-props not not))
 
 (defn padding [text count pad-str]
   (->> (. text -length)

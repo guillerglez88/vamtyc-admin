@@ -3,6 +3,18 @@
    [cljs.test :as t :include-macros true :refer [deftest is testing]]
    [vamtyc-admin.lib.util :as sut]))
 
+(deftest meta-prop?-test
+  (testing "Can check if key is a meta-prop"
+    (is (= false
+           (sut/meta-prop? :path)))
+    (is (= false
+           (sut/meta-prop? "name")))
+    (is (= true
+           (sut/meta-prop? "type")))
+    (doseq [key sut/meta-props]
+      (is (= true
+             (sut/meta-prop? key))))))
+
 (deftest padding-test
   (testing "Can add padding to text"
     (is (= "test------"

@@ -2,6 +2,8 @@
   (:require
    [vamtyc-admin.lib.util :as util]))
 
+(def meta-props #{:type :id :etag :created :modified :url})
+
 (defn render [res]
   [:table
    [:thead
@@ -11,7 +13,9 @@
      [:th
       "value"]]]
    [:tbody
-    (for [[field value index] (->> (util/flat-obj res) (map-indexed #(conj %2 %1)))]
+    (for [[field value index] (->> (util/flat-obj res)
+                                   (filter #(-> % first util/meta-prop? not))
+                                   (map-indexed #(conj %2 %1)))]
       ^{:key index}
       [:tr
        [:td

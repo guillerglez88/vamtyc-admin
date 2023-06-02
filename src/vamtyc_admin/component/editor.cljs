@@ -20,9 +20,8 @@
       [:section
        (when res
          [:header
-          [:div
-           [:span {:class "keyword"}
-            (:url res)]]
+          [:h6 {:class "mb-0"}
+            (:url res)]
           [:nav
            [:a {:class "keyword kw-3"
                 :on-click (select-format format wkf-json)}

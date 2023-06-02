@@ -108,10 +108,7 @@
                        :on-change (set-url resource inline?)
                        :on-key-down (input-keydown resource inline?)
                        :rows "5"
-                       :placeholder (:placeholder attrs)}]]
-          [:p
-           [:span {:class "keyword kw-2"} "CTRL"]
-           [:span {:class "keyword kw-2"} "Enter"]]]
+                       :placeholder (:placeholder attrs)}]]]
          [:section {:class "items"}
           (for [item (:items @resource)]
             (let [list-item (-> item :type lookup)
